@@ -1,5 +1,4 @@
-**Asset Canvas Toolkit
-**
+**Asset Canvas Toolkit**
 A web-based toolkit that allows users to drag and drop assets onto a whiteboard canvas. This project provides a streamlined interface for visual organization and spatial data management.
 
 **Features**
@@ -22,6 +21,6 @@ A web-based toolkit that allows users to drag and drop assets onto a whiteboard 
 1.  Select an asset from the library.
 2.  Drag it onto the canvas.
 3.  Use the **Properties Pane** on the right to resize or add labels.
-4.  Click **Export JSON ** to save the layout configuration.
+4.  Click **Export JSON** to save the layout configuration.
 
 Developed as part of the GSoC 2026 Proposal for **International Catrobat Association**
