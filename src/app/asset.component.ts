@@ -69,22 +69,18 @@ import { FormsModule } from '@angular/forms';
     }
 
     .agent-cat-icon {
-  /* 1. Set the size to match your other agents */
   width: 80px; 
   height: 80px;
   display: inline-block;
 
-  /* 2. Point to the image in your 'public' folder */
   -webkit-mask-image: url('/Catrobat.png');
   mask-image: url('/Catrobat.png');
 
-  /* 3. Make sure the 'stencil' fits the box */
   -webkit-mask-size: contain;
   mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   
-  /* 4. Optional: Add a transition for smooth color changes */
   transition: background-color 0.3s ease;
 }
 
