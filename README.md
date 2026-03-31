@@ -7,6 +7,7 @@ A web-based toolkit that allows users to drag and drop assets onto a whiteboard 
 2. Properties Pane: Real-time controls to scale assets, add text bubbles, and adjust positioning.
 3. Data Export: Download the precise coordinate data and properties of all assets as a structured JSON file.
 4. Manual Precision: Options for manual input of coordinates for pixel-perfect placement.
+5. Customizable canvas: Toggleable grid layout and theme switching between light (white) and dark (black) backgrounds for better visibility.
 
 **Tech Stack**
 1. Framework: Angularv21
