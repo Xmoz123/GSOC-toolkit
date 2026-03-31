@@ -26,8 +26,7 @@ export class AppComponent {
   addasset(type: string, color: string) {
     let default_value = 0;
     let default_color = color;
-
-    // Preserve Move and Rotate logic
+  
     if (type === 'Move') {
       default_value = 50;
       default_color = '#0dcaf0';
@@ -55,7 +54,6 @@ export class AppComponent {
     this.selectedId.set(newItem.id);
   }
 
-  // Handle snapping and ensure X/Y updates
   onMoveEnd(newPos: {x: number, y: number}, item: any) {
     const snappedX = Math.round(newPos.x / this.gridSize) * this.gridSize;
     const snappedY = Math.round(newPos.y / this.gridSize) * this.gridSize;
