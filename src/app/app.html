@@ -1,0 +1,102 @@
+<div class="d-flex vh-100 bg-dark text-white font-monospace">
+  
+  <div class="sidebar d-flex flex-column p-4 border-end border-secondary shadow-lg" style="width: 300px;">
+    <h4 class="text-primary fw-bold mb-1">GSOC TOOLKIT</h4>
+    <p class="text-secondary small mb-4">Sandbox v1.0</p>
+
+    <div class="mb-4 p-3 border border-secondary rounded">
+      <label class="x-small text-secondary fw-bold text-uppercase mb-3 d-block">Primitive Shapes</label>
+      <div class="d-grid gap-2">
+        <button (click)="addasset('Square', '#0d6efd')" class="btn btn-outline-primary btn-sm text-start"><i class="bi bi-square me-2"></i> Square</button>
+        <button (click)="addasset('Circle', '#198754')" class="btn btn-outline-success btn-sm text-start"><i class="bi bi-circle me-2"></i> Circle</button>
+        <button (click)="addasset('Triangle', '#ffc107')" class="btn btn-outline-warning btn-sm text-start"><i class="bi bi-triangle me-2"></i> Triangle</button>
+      </div>
+    </div>
+
+    <div class="mb-4 p-3 border border-secondary rounded">
+      <label class="x-small text-secondary fw-bold text-uppercase mb-3 d-block">Action Nodes</label>
+      <div class="d-grid gap-2">
+        <button (click)="addasset('Move', '#0dcaf0')" class="btn btn-outline-info btn-sm text-start"><i class="bi bi-play-circle me-2"></i> Move Block</button>
+        <button (click)="addasset('Rotate', '#a855f7')" class="btn btn-outline-secondary btn-sm text-start border-purple text-purple"><i class="bi bi-arrow-clockwise me-2"></i> Rotate Block</button>
+      </div>
+    </div>
+
+    <div class="mb-4 p-3 border border-secondary rounded">
+      <label class="x-small text-secondary fw-bold text-uppercase mb-3 d-block">Agents</label>
+      <div class="d-grid gap-2">
+        <button (click)="addasset('Robot', '#ffffff')" class="btn btn-outline-light btn-sm text-start"><i class="bi bi-robot me-2"></i> Robot</button>
+        <button (click)="addasset('Cat', '#ff9f43')" class="btn btn-outline-warning btn-sm text-start"><i class="bi bi-cat-fill me-2"></i> Cat (Mascot)</button>
+      </div>
+    </div>
+
+    <div class="mt-auto">
+      <div class="d-flex justify-content-between mb-3 x-small text-secondary px-1">
+        <span (click)="toggleGrid()" style="cursor:pointer">Toggle Grid</span>
+        <span (click)="toggleBackground()" style="cursor:pointer">Change BG</span>
+      </div>
+
+      <button (click)="duplicateSelected()" *ngIf="selectedId()" class="btn btn-primary w-100 mb-2 py-2">Copy Selected</button>
+      <button (click)="export_as_json()" class="btn btn-warning w-100 fw-bold mb-3">Export JSON</button>
+      <div class="text-center">
+        <button (click)="clearcanvas()" class="btn btn-link text-danger text-decoration-none btn-sm p-0">Clear All</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-grow-1 position-relative overflow-hidden" 
+       [style.backgroundColor]="backgrounds[currentBgIndex()]" 
+       (mousedown)="selectedId.set(null)">
+  
+    <div *ngIf="showGrid()" class="grid-overlay position-absolute w-100 h-100" style="opacity: 0.15;"></div>
+    
+    <div class="w-100 h-100 position-relative">
+      @for (item of assets(); track item.id) {
+        <app-asset 
+          [data]="item" 
+          [isSelected]="selectedId() === item.id" 
+          (moved)="onMoveEnd($event, item)" 
+          (mousedown)="$event.stopPropagation(); selectedId.set(item.id)">
+        </app-asset>
+      }
+    </div>
+
+    <div class="position-absolute top-0 end-0 m-4 p-3 bg-dark border border-secondary rounded shadow-lg" 
+         style="width: 260px; z-index: 100;" 
+         *ngIf="selectedAsset() as asset"
+         (mousedown)="$event.stopPropagation()">
+      
+      <h6 class="text-primary x-small fw-bold text-uppercase mb-3">Properties: {{asset.type}}</h6>
+      
+      <div class="mb-3">
+        <label class="x-small text-secondary d-block mb-1">Position (X, Y)</label>
+        <div class="d-flex gap-2">
+          <input type="number" [(ngModel)]="asset.position.x" class="form-control form-control-sm bg-dark text-white border-secondary">
+          <input type="number" [(ngModel)]="asset.position.y" class="form-control form-control-sm bg-dark text-white border-secondary">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="x-small text-secondary d-block mb-1">Speech Bubble</label>
+        <input type="text" [(ngModel)]="asset.speechText" 
+               class="form-control form-control-sm bg-dark text-white border-secondary"
+               placeholder="Hello!">
+      </div>
+
+      <div class="mb-3">
+        <label class="x-small text-secondary d-block mb-1">Color</label>
+        <input type="color" [(ngModel)]="asset.color" class="form-control form-control-color w-100 bg-transparent border-0">
+      </div>
+
+      <label class="x-small text-secondary d-block mb-1">Scale (Size)</label>
+      <input type="range" 
+           [(ngModel)]="asset.scale" 
+           min="0.5" 
+           max="3" 
+           step="0.1" 
+           class="form-range custom-slider">
+      <div class="text-end x-small text-secondary">{{asset.scale}}x</div>
+
+      <button (click)="deleteSelected()" class="btn btn-danger btn-sm w-100">Delete Asset</button>
+    </div>
+  </div>
+</div>
